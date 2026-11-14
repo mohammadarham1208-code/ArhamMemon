@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mery Restaurant · one page</title>
+  <!-- Font Awesome icons (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- GLOBAL RESET & VARIABLES ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+    }
+
+    body {
+      background-color: #fef9f2;
+      color: #2e241f;
+      line-height: 1.5;
+    }
+
+    :root {
+      --primary: #c49a6c;
+      --primary-dark: #a87c4f;
+      --accent: #9b2c2c;
+      --dark: #2e241f;
+      --light: #fff9f0;
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      --border-radius: 24px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ---------- NAVBAR ---------- */
+    .navbar {
+      background-color: #ffffff;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.03);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 12px 0;
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo i {
+      color: var(--accent);
+      font-size: 2rem;
+    }
+
+    .logo span {
+      color: var(--primary);
+      font-weight: 300;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      transition: 0.2s;
+      font-size: 1.05rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-dark);
+    }
+
+    /* search bar inside navbar */
+    .nav-search {
+      display: flex;
+      align-items: center;
+      background: #f0e8e0;
+      border-radius: 40px;
+      padding: 6px 6px 6px 18px;
+      gap: 6px;
+    }
+
+    .nav-search input {
+      border: none;
+      background: transparent;
+      padding: 8px 0;
+      font-size: 0.95rem;
+      outline: none;
+      width: 170px;
+      color: var(--dark);
+    }
+
+    .nav-search input::placeholder {
+      color: #8b7a6b;
+    }
+
+    .nav-search button {
+      background: var(--primary);
+      border: none;
+      border-radius: 40px;
+      padding: 8px 16px;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 1rem;
+    }
+
+    .nav-search button:hover {
+      background: var(--primary-dark);
+    }
+
+    /* ---------- HERO CAROUSEL ---------- */
+    .carousel-section {
+      margin: 32px 0 24px;
+    }
+
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      background: #ddd;
+      aspect-ratio: 16 / 6;
+      min-height: 220px;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s ease-in-out;
+      height: 100%;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    /* background images with overlay via pseudo */
+    .slide1 {
+      background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop');
+    }
+    .slide2 {
+      background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1200&auto=format&fit=crop');
+    }
+    .slide3 {
+      background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1200&auto=format&fit=crop');
+    }
+
+    .carousel-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+
+    .carousel-slide span {
+      position: relative;
+      z-index: 2;
+      padding: 0 16px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 12px 28px;
+      border-radius: 60px;
+      backdrop-filter: blur(3px);
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(8px);
+      border: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.6rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: 0.2s;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .carousel-btn:hover {
+      background: rgba(255, 255, 255, 0.45);
+      color: #1f1a16;
+    }
+
+    .btn-prev {
+      left: 20px;
+    }
+    .btn-next {
+      right: 20px;
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #cfc2b4;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .dot.active {
+      background: var(--primary-dark);
+      transform: scale(1.2);
+      width: 24px;
+      border-radius: 10px;
+    }
+
+    /* ---------- CARDS / MENU ---------- */
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 48px 0 8px;
+      color: var(--dark);
+    }
+
+    .section-sub {
+      color: #756b61;
+      margin-bottom: 28px;
+      font-size: 1.05rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 28px;
+      margin: 24px 0 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 24px 18px 22px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.02);
+      transition: 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border: 1px solid #f1e7de;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 40px -12px rgba(0, 0, 0, 0.15);
+      border-color: #e3d4c7;
+    }
+
+    .card-icon {
+      font-size: 2.6rem;
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #2e241f;
+    }
+
+    .card p {
+      color: #6d6158;
+      margin-bottom: 18px;
+      font-size: 0.95rem;
+    }
+
+    .price {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-top: auto;
+    }
+
+    .price small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #9b8b7c;
+    }
+
+    /* ---------- CONTACT / FORM ---------- */
+    .contact-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      background: #ffffff;
+      border-radius: 36px;
+      padding: 40px;
+      margin: 40px 0 56px;
+      box-shadow: var(--shadow);
+      border: 1px solid #f0e4da;
+    }
+
+    .contact-info h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .contact-info p {
+      color: #6b5f54;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+      color: #3f352e;
+      font-size: 1.05rem;
+    }
+
+    .contact-detail i {
+      width: 28px;
+      color: var(--primary-dark);
+      font-size: 1.3rem;
+    }
+
+    .contact-form .form-group {
+      margin-bottom: 16px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid #e3d9d0;
+      border-radius: 30px;
+      font-size: 1rem;
+      background: #fcf9f6;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(196, 154, 108, 0.2);
+      background: white;
+    }
+
+    .contact-form textarea {
+      border-radius: 24px;
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 40px;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      width: 100%;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: scale(1.01);
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+      background: #2e241f;
+      color: #e7ddd4;
+      padding: 48px 0 24px;
+      border-radius: 48px 48px 0 0;
+      margin-top: 40px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-col h4 {
+      color: #f3e7dc;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-col p,
+    .footer-col a {
+      color: #cbbcb0;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: white;
+      padding-left: 4px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+      font-size: 1.4rem;
+    }
+
+    .social-icons a {
+      color: #cbbcb0;
+      transition: 0.2s;
+    }
+
+    .social-icons a:hover {
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 40px;
+      margin-top: 24px;
+      border-top: 1px solid #4a3d35;
+      color: #a5968a;
+      font-size: 0.9rem;
+    }
+
+    /* ---------- SEARCH FEEDBACK ---------- */
+    .search-feedback {
+      font-size: 0.95rem;
+      margin-left: 8px;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      .contact-section {
+        grid-template-columns: 1fr;
+        padding: 28px;
+      }
+      .nav-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .nav-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+      .nav-search {
+        justify-content: space-between;
+      }
+      .nav-search input {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .carousel-slide {
+        font-size: 1.4rem;
+      }
+      .carousel-slide span {
+        padding: 8px 18px;
+      }
+      .carousel-btn {
+        width: 38px;
+        height: 38px;
+        font-size: 1.3rem;
+      }
+      .section-title {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<header class="navbar">
+  <div class="container nav-container">
+    <div class="logo">
+      <i class="fas fa-utensils"></i> Mery <span>Restaurant</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Menu</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="nav-search">
+      <input type="text" id="navSearchInput" placeholder="Search dishes..." aria-label="Search">
+      <button id="navSearchBtn"><i class="fas fa-search"></i></button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ================= CAROUSEL ================= -->
+  <section class="carousel-section">
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide slide1"><span>✨ Tandoori Nights ✨</span></div>
+        <div class="carousel-slide slide2"><span>🍝 Pasta & Risotto 🍝</span></div>
+        <div class="carousel-slide slide3"><span>🍰 Sweet Indulgence 🍰</span></div>
+      </div>
+      <button class="carousel-btn btn-prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+      <button class="carousel-btn btn-next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    <div class="carousel-dots" id="carouselDots">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
+    </div>
+  </section>
+
+  <!-- ================= CARDS / MENU HIGHLIGHTS ================= -->
+  <h2 class="section-title">Savor the flavour</h2>
+  <p class="section-sub">Chef's special – freshly prepared every day</p>
+
+  <div class="cards-grid" id="cardsGrid">
+    <div class="card">
+      <i class="fas fa-pizza-slice card-icon"></i>
+      <h3>Margherita</h3>
+      <p>San Marzano tomato, mozzarella, basil</p>
+      <div class="price">$12.90</div>
+    </div>
+    <div class="card">
+      <i class="fas fa-hamburger card-icon"></i>
+      <h3>Classic Burger</h3>
+      <p>Angus beef, cheddar, caramelized onion</p>
+      <div class="price">$15.50</div>
+    </div>
+    <div class="card">
+      <i class="fas fa-fish card-icon"></i>
+      <h3>Grilled Salmon</h3>
+      <p>Lemon butter, asparagus, quinoa</p>
+      <div class="price">$22.30</div>
+    </div>
+    <div class="card">
+      <i class="fas fa-mug-hot card-icon"></i>
+      <h3>Tiramisu</h3>
+      <p>Espresso-soaked ladyfingers, mascarpone</p>
+      <div class="price">$8.90</div>
+    </div>
+  </div>
+
+  <!-- ================= CONTACT + FORM ================= -->
+  <section class="contact-section" id="contact">
+    <div class="contact-info">
+      <h2>Find us</h2>
+      <p>We're in the heart of downtown, ready to serve you the best flavours.</p>
+      <div class="contact-detail">
+        <i class="fas fa-map-pin"></i> 123 Gourmet Street, Foodville
+      </div>
+      <div class="contact-detail">
+        <i class="fas fa-phone-alt"></i> +1 (555) 234-5678
+      </div>
+      <div class="contact-detail">
+        <i class="fas fa-envelope"></i> hello@meryrestaurant.com
+      </div>
+      <div class="contact-detail">
+        <i class="fas fa-clock"></i> Mon–Sun: 11:00 – 23:00
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3 style="margin-bottom: 20px; font-weight: 500;">Send a message</h3>
+      <form id="contactForm">
+        <div class="form-group">
+          <input type="text" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="Email address" required>
+        </div>
+        <div class="form-group">
+          <textarea placeholder="Your message..."></textarea>
+        </div>
+        <button type="submit" class="btn-primary"><i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Send</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-container">
+      <div class="footer-col">
+        <h4>Mery Restaurant</h4>
+        <p style="margin-top: 0;">Flavour that brings people together.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#">Menu</a>
+        <a href="#">Reservations</a>
+        <a href="#">Gift cards</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer-col">
+        <h4>Opening hours</h4>
+        <p>Mon–Thu: 11am – 10pm</p>
+        <p>Fri–Sat: 11am – 11pm</p>
+        <p>Sunday: 12pm – 9pm</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p><i class="fas fa-phone-alt" style="width: 20px;"></i> +1 (555) 234-5678</p>
+        <p><i class="fas fa-envelope" style="width: 20px;"></i> hello@mery.com</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Mery Restaurant. All rights reserved. Crafted with <i class="fas fa-heart" style="color: #c49a6c;"></i>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= JAVASCRIPT ================= -->
+<script>
+  (function() {
+    // ---------- CAROUSEL ----------
+    const track = document.getElementById('carouselTrack');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dots = document.querySelectorAll('.dot');
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      // update active dot
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    function goToSlide(index) {
+      if (index < 0) index = totalSlides - 1;
+      if (index >= totalSlides) index = 0;
+      currentIndex = index;
+      updateCarousel();
+    }
+
+    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => goToSlide(i));
+    });
+
+    // optional auto-advance (every 6s) — but we keep it user friendly
+    // setInterval(() => goToSlide(currentIndex + 1), 6000);
+
+    // ---------- SEARCH BAR (filter cards & feedback) ----------
+    const searchInput = document.getElementById('navSearchInput');
+    const searchBtn = document.getElementById('navSearchBtn');
+    const cards = document.querySelectorAll('.card');
+    const cardsGrid = document.getElementById('cardsGrid');
+
+    // create feedback element (will be placed inside nav-search after button)
+    const feedbackSpan = document.createElement('span');
+    feedbackSpan.className = 'search-feedback';
+    document.querySelector('.nav-search').appendChild(feedbackSpan);
+
+    function performSearch() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = card.querySelector('h3')?.innerText.toLowerCase() || '';
+        const desc = card.querySelector('p')?.innerText.toLowerCase() || '';
+        const matches = title.includes(query) || desc.includes(query);
+        if (query === '' || matches) {
+          card.style.display = 'flex'; // restore
+          if (query !== '') visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Feedback message
+      if (query === '') {
+        feedbackSpan.textContent = '';
+      } else {
+        if (visibleCount === 0) {
+          feedbackSpan.textContent = `no matches`;
+        } else {
+          feedbackSpan.textContent = `${visibleCount} found`;
+        }
+      }
+
+      // if no cards visible, show a little message? we can add a fallback pseudo, but keep simple.
+      // Alternatively, if all hidden, we can show a temporary message via feedback, already done.
+    }
+
+    // trigger on button click
+    searchBtn.addEventListener('click', performSearch);
+
+    // trigger on Enter key
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        performSearch();
+      }
+    });
+
+    // reset search when input is cleared (optional: also reset on ESC)
+    searchInput.addEventListener('input', () => {
+      if (searchInput.value.trim() === '') {
+        cards.forEach(card => card.style.display = 'flex');
+        feedbackSpan.textContent = '';
+      }
+    });
+
+    // ---------- CONTACT FORM (prevent page reload, show alert) ----------
+    const contactForm = document.getElementById('contactForm');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('Thank you! Your message has been sent (demo).');
+      contactForm.reset();
+    });
+
+    // ---------- Fix carousel height on small screens ----------
+    // (already fine with aspect-ratio, but keep in mind)
+    // minor: ensure display flex on cards if hidden previously
+    // already set display:flex in card style; hidden will override via JS to 'none'.
+
+    // ---------- active state on dots initial ----------
+    updateCarousel();
+  })();
+</script>
+</body>
+</html>
